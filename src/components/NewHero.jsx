@@ -4,7 +4,7 @@ import {
   useTexture,
   useGLTF,
   Bounds,
-  Reflector,
+  MeshReflectorMaterial,
 } from "@react-three/drei";
 
 function Carla(props) {
@@ -27,8 +27,9 @@ function ImageScreen(props) {
 
 function Ground() {
   const [floor, normal] = useTexture(["texture2.jpg", "normal1.jpeg"]);
+  const Material = MeshReflectorMaterial;
   return (
-    <Reflector
+    <Material
       blur={[400, 100]}
       resolution={512}
       args={[10, 14]}
@@ -36,20 +37,13 @@ function Ground() {
       mixBlur={20}
       mixStrength={5}
       rotation={[-Math.PI / 2, 0, Math.PI / 2]}
-    >
-      {(Material, props) => (
-        <Material
-          color="#505050"
-          metalness={0.5}
-          roughnessMap={floor}
-          normalMap={normal}
-          normalScale={[2, 2]}
-          {...props}
-        />
+      color="#505050"
+      metalness={0.5}
+      roughnessMap={floor}
+      normalMap={normal}
+      normalScale={[2, 2]}
+    />
       )}
-    </Reflector>
-  );
-}
 
 function Shoe({ ...props }) {
   const ref = useRef();
