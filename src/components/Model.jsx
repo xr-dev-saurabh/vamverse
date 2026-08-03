@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useEffect } from "react";
 import {  useParams } from "react-router-dom";
 
@@ -8,37 +8,22 @@ const Model = (props) => {
   const [model, setModel] = useState("");
   const [ios, setIos] = useState("");
   const [placement, setPlacement] = useState("");
-  const data = [
-    {
-      id: "1",
-      model: "/model1.glb",
-      ios:"/model1.usdz",
-      placement:"floor"
-    },
-    {
-      id: "2",
-      model: "/model2.glb",
-      ios:"/model2.usdz",
-      placement:"wall"
-    },
-    {
-      id: "3",
-      model: "/model3.glb",
-      ios:"/model3.usdz",
-      placement:"floor"
-    },
-  ];
+ const data = useMemo(() => [
+    { id: "1", model: "/model1.glb", ios: "/model1.usdz", placement: "floor" },
+    { id: "2", model: "/model2.glb", ios: "/model2.usdz", placement: "wall" },
+    { id: "3", model: "/model3.glb", ios: "/model3.usdz", placement: "floor" },
+  ], []);
 
   useEffect(() => {
-    data.find((item) => {
-      if (item.id === id.id) {
-        console.log(item.model);
-        setModel(item.model);
-        setIos(item.ios)
-        setPlacement(item.placement)
-      }
-    });
-  }, []);
+  const selectedItem = data.find((item) => item.id === id.id);
+
+  if (selectedItem) {
+    console.log(selectedItem.model);
+    setModel(selectedItem.model);
+    setIos(selectedItem.ios);
+    setPlacement(selectedItem.placement);
+  }
+}, [data, id.id]);
   return (
     <div>
       <model-viewer
