@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://vamverse.com",
   "engines": {
-    "node": "16.20.2"
+    "node": "22.0.0"
   },
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
